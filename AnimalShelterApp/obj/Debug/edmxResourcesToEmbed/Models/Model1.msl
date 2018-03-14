@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AnimalShelterModelStoreContainer" CdmEntityContainer="Animal_ShelterEntities">
+    <EntitySetMapping Name="Adoptions">
+      <EntityTypeMapping TypeName="AnimalShelterModel.Adoption">
+        <MappingFragment StoreEntitySet="Adoption">
+          <ScalarProperty Name="AdoptionID" ColumnName="AdoptionID" />
+          <ScalarProperty Name="PetID" ColumnName="PetID" />
+          <ScalarProperty Name="FamilyID" ColumnName="FamilyID" />
+          <ScalarProperty Name="DateAdopted" ColumnName="DateAdopted" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Families">
+      <EntityTypeMapping TypeName="AnimalShelterModel.Family">
+        <MappingFragment StoreEntitySet="Family">
+          <ScalarProperty Name="FamilyID" ColumnName="FamilyID" />
+          <ScalarProperty Name="HasFence" ColumnName="HasFence" />
+          <ScalarProperty Name="HasOtherPets" ColumnName="HasOtherPets" />
+          <ScalarProperty Name="HasSmallChildren" ColumnName="HasSmallChildren" />
+          <ScalarProperty Name="FamilyName" ColumnName="FamilyName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pets">
+      <EntityTypeMapping TypeName="AnimalShelterModel.Pet">
+        <MappingFragment StoreEntitySet="Pet">
+          <ScalarProperty Name="PetID" ColumnName="PetID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Breed" ColumnName="Breed" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="PetName" ColumnName="PetName" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

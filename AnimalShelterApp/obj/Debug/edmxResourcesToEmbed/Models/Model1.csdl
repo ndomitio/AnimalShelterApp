@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AnimalShelterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Adoption">
+    <Key>
+      <PropertyRef Name="AdoptionID" />
+    </Key>
+    <Property Name="AdoptionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PetID" Type="Int32" Nullable="false" />
+    <Property Name="FamilyID" Type="Int32" Nullable="false" />
+    <Property Name="DateAdopted" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EmployeeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Family" Relationship="Self.FK_Adoption_Family" FromRole="Adoption" ToRole="Family" />
+    <NavigationProperty Name="Pet" Relationship="Self.FK_Adoption_Pet" FromRole="Adoption" ToRole="Pet" />
+  </EntityType>
+  <EntityType Name="Family">
+    <Key>
+      <PropertyRef Name="FamilyID" />
+    </Key>
+    <Property Name="FamilyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HasFence" Type="Boolean" />
+    <Property Name="HasOtherPets" Type="Boolean" Nullable="false" />
+    <Property Name="HasSmallChildren" Type="Boolean" Nullable="false" />
+    <Property Name="FamilyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Adoptions" Relationship="Self.FK_Adoption_Family" FromRole="Family" ToRole="Adoption" />
+  </EntityType>
+  <EntityType Name="Pet">
+    <Key>
+      <PropertyRef Name="PetID" />
+    </Key>
+    <Property Name="PetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Breed" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Age" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PetName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Photo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Adoptions" Relationship="Self.FK_Adoption_Pet" FromRole="Pet" ToRole="Adoption" />
+  </EntityType>
+  <Association Name="FK_Adoption_Family">
+    <End Role="Family" Type="Self.Family" Multiplicity="1" />
+    <End Role="Adoption" Type="Self.Adoption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Family">
+        <PropertyRef Name="FamilyID" />
+      </Principal>
+      <Dependent Role="Adoption">
+        <PropertyRef Name="FamilyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Adoption_Pet">
+    <End Role="Pet" Type="Self.Pet" Multiplicity="1" />
+    <End Role="Adoption" Type="Self.Adoption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pet">
+        <PropertyRef Name="PetID" />
+      </Principal>
+      <Dependent Role="Adoption">
+        <PropertyRef Name="PetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Animal_ShelterEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Adoptions" EntityType="Self.Adoption" />
+    <EntitySet Name="Families" EntityType="Self.Family" />
+    <EntitySet Name="Pets" EntityType="Self.Pet" />
+    <AssociationSet Name="FK_Adoption_Family" Association="Self.FK_Adoption_Family">
+      <End Role="Family" EntitySet="Families" />
+      <End Role="Adoption" EntitySet="Adoptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Adoption_Pet" Association="Self.FK_Adoption_Pet">
+      <End Role="Pet" EntitySet="Pets" />
+      <End Role="Adoption" EntitySet="Adoptions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
